@@ -1,0 +1,406 @@
+*{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    margin: 0;
+    padding: 0;
+    cursor: default;
+    -webkit-user-select: none;
+    /*webkit浏览器*/
+    -moz-user-select: none;
+    /*火狐*/
+    -ms-user-select: none;
+    /*IE10*/
+    user-select: none;
+    color: #8f8f8f;
+    border: none;
+}
+a{
+    text-decoration: none;
+}
+body{
+    background: #333;
+}
+
+
+
+/*头部*/
+#header {
+    height: 54px;
+}
+#header a {
+    position: absolute;
+    top: 16px;
+    cursor: pointer;
+}
+#header a:nth-of-type(1) {
+    font-weight: bold;
+    left: 20px;
+    color: #666;
+}
+#header a:nth-of-type(2) {
+    right: 20px;
+    float: right;
+}
+.searchValue{
+    position: absolute;
+    left: 50%;
+    margin-left: -200px;
+    margin-top: 20px;
+}
+.searchValue input{
+    width: 400px;
+    height: 25px;
+    outline: none;
+    float: left;
+    background: #333;
+    border-bottom: 1px solid #999;
+} 
+.searchValue button{
+    padding:0px;
+    width: 25px;
+    height: 25px;
+    outline: none;
+    background: #333;
+    position: relative;
+    left: -20px;
+    top:-1px
+}
+.suggest{
+    width: 400px;
+    background-color: #fff;
+    display: none;
+}
+.suggest ul{
+    list-style: none;
+    margin: 0px;
+    padding: 0px;
+}
+.suggest ul li{
+    padding: 3px;
+    line-height: 25px;
+    cursor: pointer;
+}
+#search-suggest{
+    z-index:100;
+    background-color: #e5e5e5;
+}
+.suggest ul li:hover{
+    background-color: #CCCC99;
+}
+.suggest td{
+    width: 200px;
+}
+/*内容区*/
+#wrap {
+    position: relative;
+    top: 38px;
+    width: 870px;
+    height: 412px;
+    margin: 0 auto;
+}
+
+/*内容区1——列表*/
+.List-part {
+    width: 640px;
+    height: 308px;
+}
+.content {
+    overflow: auto;
+    width: 640px;
+    height: 304px;
+}
+.header_1 {
+    font-size: 12px;
+    width: 640px;
+    height: 26px;
+}
+.clearAll {
+    font-size: 12px;
+    float: right;
+    cursor: pointer;
+}
+.clearPrompt {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -16px;
+    margin-left: -300px;
+}
+.clearPrompt > p > a {
+    cursor: pointer;
+    text-decoration: solid;
+    color: whitesmoke;
+}
+.table td {
+    line-height: 46px;
+    height: 46px;
+    cursor: pointer;
+    vertical-align: middle;
+    color: #999;
+    border: none;
+    border-top: 1px solid #464646;
+}
+.table tr:hover > td {
+    color: whitesmoke;
+}
+.table td:nth-of-type(1) {
+    width: 32px;
+    text-align: center;
+}
+.table td:nth-of-type(2) {
+    width: 280px;
+    padding-left: 20px;
+}
+.table td:nth-of-type(3) {
+    width: 200px;
+}
+.table td:nth-of-type(4) {
+    width: 150px;
+    text-align: right;
+}
+.hiddendiv {
+    display: none;
+}
+i {
+    margin-left: 10px;
+    cursor: pointer;
+}
+i:hover {
+    color: whitesmoke;
+}
+.songType:hover {
+    color: whitesmoke;
+}
+.activeRow td {
+    color: whitesmoke;
+}
+.icon_right {
+    margin-right: 10px;
+}
+
+/*内容区2——歌手信息*/
+.message {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 152px;
+    height: 308px;
+}
+.message > div:first-of-type {
+    width: 150px;
+    height: 150px;
+    cursor: pointer;
+    /*background: url('../img/谢春花.jpg') no-repeat;*/
+}
+img{
+    border:0;
+}
+.message > span {
+    display: inline-block;
+    width: 100%;
+    cursor: pointer;
+    text-align: center;
+    line-height: 16px;
+}
+.songType {
+    font-size: 12px;
+    margin-top: 20px;
+}
+.singer {
+    font-size: 16px;
+    overflow: hidden;
+    margin-top: 20px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    color: whitesmoke;
+    -o-text-overflow: ellipsis;
+}
+#stars {
+    position: relative;
+    top: 16px;
+    height: 16px;
+    padding: 10px 10px;
+    border-top: 1px solid #464646;
+    border-bottom: 1px solid #464646;
+}
+#stars span {
+    margin: 0 5px 0 5px;
+}
+#stars b {
+    font-weight: normal;
+}
+.lyrics-on {
+    position: absolute;
+    bottom: 0;
+}
+
+/*内容区3——播放器*/
+
+.audio {
+    position: absolute;
+    bottom: 0;
+    width: 870px;
+    height: 44px;
+}
+.controlAudio {
+    position: absolute;
+    top: 10px;
+    right: 0;
+    width: 152px;
+    height: 44px;
+}
+.controlVolume {
+    position: absolute;
+    top: 24px;
+    right: 190px;
+    width: 120px;
+    height: 44px;
+}
+.icon-pause {
+    margin: 0 20px 0 35px;
+}
+.icon-play {
+    margin: 0 22px 0 35px;
+    /*图标尺寸好像不一样，不加2px的话‘向右’图标会偏移*/
+}
+.icon-2x {
+    padding: 0;
+    cursor: pointer;
+}
+.musicMessage {
+    width: 550px;
+}
+.musicMessage span:last-of-type {
+    font-size: 12px;
+}
+.musicTime {
+    float: right;
+}
+.progressBar {
+    position: absolute;
+    bottom: 10px;
+    width: 550px;
+    height: 4px;
+    cursor: pointer;
+    background: #7a7a7a;
+}
+.progressCircle {
+    position: absolute;
+    top: -4px;
+    left: 0;
+    width: 12px;
+    height: 12px;
+    cursor: pointer;
+    border-radius: 100%;
+    background: #fff;
+}
+.progressLight {
+    position: absolute;
+    width: 0;
+    height: 4px;
+    cursor: pointer;
+    background: #fff;
+}
+
+
+/*注册页*/
+.registration-page {
+    width: 500px;
+    height: 500px;
+    left: 50%;
+    display: none;
+    margin-left: -250px;
+    bottom: 15px;
+    position: fixed;
+    z-index: 10;
+    background: white;
+}
+.registration-page h2, .protocol {
+    color: black;
+    text-align: center;
+    margin: 50px auto;
+    font-size: 28px;
+    font-weight: normal;
+}
+.registered-wrapper {
+    width: 400px;
+    height: 400px;
+    margin: 0 auto;
+}
+.registered-wrapper div {
+    margin-top: 20px;
+}
+.registered-wrapper .form-group {
+    position: relative;
+}
+span.error, .icon-thumbs-up {
+    color: #ef2819;
+    display: inline;
+    position: absolute;
+    top: 10px;
+    right: 15px;
+}
+.icon-thumbs-up {
+    color: #00AA88;
+}
+.cover {
+    display:none;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    background-color: #000;
+    opacity: 0.5;
+}
+::-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color: #6a6f77;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color: #6a6f77;
+}
+.form-group input::-webkit-input-placeholder {
+    color: #6a6f77;
+}
+.form-group input, .registered-btn {
+    box-sizing: border-box;
+    font-size: 16px;
+    height: 40px;
+    border-radius: 4px;
+    border: 1px solid #c8cccf;
+    color: #6a6f77;
+    -web-kit-appearance: none;
+    -moz-appearance: none;
+    display: block;
+    outline: 0;
+    padding: 0 1em;
+    text-decoration: none;
+    width: 100%;
+}
+.registered-btn{
+    background-color: #03af1e;
+    color: whitesmoke;
+    cursor: pointer;
+}
+.form-group input:focus {
+    border: 1px solid #00CCFF;
+}
+.form-group input:hover {
+    cursor: text;
+ }
+.protocol {
+    font-size: 14px;
+}
+.protocol a{
+    cursor: pointer;
+ }
+.icon-reply{
+    position: absolute;
+    top:20px;
+    left: 20px;
+    color: #333333;
+}
+.icon-reply:hover{
+    color: #03af1e;
+}
