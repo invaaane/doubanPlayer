@@ -1,20 +1,20 @@
 //更新进度条
 function updateProgressBar() {
-    console.log($('audio').attr('src'), $('audio')[0].duration, $('audio')[0].currentTime)
-    let minuteNum = PrefixInteger(parseInt(($('audio')[0].duration - $('audio')[0].currentTime) / 60), 2);
-    let secondNum = PrefixInteger(parseInt(($('audio')[0].duration - $('audio')[0].currentTime) % 60), 2);
+    //console.log($('audio').attr('src'), $('audio')[0].duration, $('audio')[0].currentTime)
+    console.log('更新进度条')
+    var minuteNum = PrefixInteger(parseInt(($('audio')[0].duration - $('audio')[0].currentTime) / 60), 2);
+    var secondNum = PrefixInteger(parseInt(($('audio')[0].duration - $('audio')[0].currentTime) % 60), 2);
     $('.musicTime').text('-' + minuteNum + ':' + secondNum);
     oprogressLight.style.width = $('audio')[0].currentTime / $('audio')[0].duration * 550 + 'px';
     oprogressCircle.style.left = $('audio')[0].currentTime / $('audio')[0].duration * 550 + 'px';
 }
 //更新列表数目
 function updateListNum() {
-    //此处有bug//在第一次点击删除按钮时，$("table tr").length不会改变
     $('.header_1 >span:first').html($('tr[class=activeRow]').index() + 1 + '/' + $(".table tr").length);
 }
 //点击列表更新音源区
 function updateMessage(clickElement, songNum) {
-    console.log(clickElement)
+    //console.log(clickElement)
     $('.songTitle').html(songList[songNum].song);
     $('.singer').html(songList[songNum].singer);
     $('audio').attr('src', songList[songNum].url);
@@ -31,9 +31,9 @@ function PrefixInteger(num) {
 }
 //随机播放
 function rondomMode() {
-    let a = Math.floor(Math.random() * $(".table tr").length);
-    let b = $('.table tr[class=activeRow]').index() + 1;
-    console.log(a,b)
+    var a = Math.floor(Math.random() * $(".table tr").length);
+    var b = $('.table tr[class=activeRow]').index() + 1;
+    //console.log(a,b)
     if (a === b) {
          a = Math.floor(Math.random() * $(".table tr").length);
     }
@@ -126,7 +126,6 @@ $('.searchInput').on('keyup', function (e) {
 })
 //点击下拉层添加至列表并播放
 $('#search-suggest').on('click', 'li', function () {
-    console.log("1")
     var suggestNum = $(this).index();
     $('.table').prepend($('<tr/>')
         .append($('<td/>').html(td1))
@@ -139,7 +138,6 @@ $('#search-suggest').on('click', 'li', function () {
         url: songSuggest[suggestNum].url,
         img: songSuggest[suggestNum].img
     })
-    console.log(songList)
     $('audio').attr('src', songSuggest[suggestNum].url);
     $('img').attr('src', songSuggest[suggestNum].img);
     $('.songTitle').html(songSuggest[suggestNum].song);
@@ -171,8 +169,7 @@ function search() {
                 url: data.showapi_res_body.pagebean.contentlist[0].m4a,
                 img: data.showapi_res_body.pagebean.contentlist[0].albumpic_big
             })
-            console.log(songList)
-            console.log(data, data.showapi_res_body.pagebean.contentlist[0].albumpic_small)
+            //console.log(data)
             //$('#message-cover img').css('background-image','url('+data.showapi_res_body.pagebean.contentlist[0].albumpic_big+')')
             $('.table').prepend($('<tr/>')
                 .append($('<td/>').html(td1))
@@ -221,6 +218,7 @@ function changeIconToPause() {
 }
 //切换图标pause-play
 function changeIconToPlay() {
+    console.log('切换图标')
     if ($('.control-play').hasClass('icon-pause')) {
         $('.control-play').attr('class', 'icon-play control-play icon-2x');
     }
@@ -247,12 +245,12 @@ $('.icon-double-angle-left').on('click', function () {
     }
 });
 $('.icon-double-angle-right').on('click', function () {
-    console.log("1")
+    //console.log("1")
     if ($('.exchangeMode').hasClass('icon-reorder')) {
         $('.table tr[class=activeRow]').next().children(2).trigger('click');
     } else {
         rondomMode();
-        console.log("2")
+        //console.log("2")
     }
 });
 //随机播放/顺序播放
@@ -301,15 +299,16 @@ var oprogressLight = document.getElementsByClassName('progressLight')[0];
 var oProgressBra = document.getElementsByClassName('progressBar')[0];
 //进度条，拖拽时停止播放
 oprogressCircle.onmousedown = function (event) {
+    console.log('进入拖拽函数')
     changeIconToPlay();
     e = event || window.event;
-    let b = oProgressBra.getBoundingClientRect().left;
-    let x2 = e.clientX - oprogressCircle.getBoundingClientRect().left;
-    let that = this;
+    var b = oProgressBra.getBoundingClientRect().left;
+    var x2 = e.clientX - oprogressCircle.getBoundingClientRect().left;
+    var that = this;
     document.onmousemove = function (event) {
         changeIconToPlay();
         e = event || window.event;
-        let CircleX = e.clientX - x2 - b;
+        var CircleX = e.clientX - x2 - b;
         $('audio')[0].pause();
         document.body.style.cursor = 'pointer';
         if (CircleX < 0) {
@@ -320,8 +319,8 @@ oprogressCircle.onmousedown = function (event) {
         that.style.left = CircleX + 'px';
         $('audio')[0].currentTime = CircleX / 550 * $('audio')[0].duration;
         oprogressLight.style.width = CircleX + 'px';
-        let minuteNum = PrefixInteger(parseInt(($('audio')[0].duration - $('audio')[0].currentTime) / 60), 2);
-        let secondNum = PrefixInteger(parseInt(($('audio')[0].duration - $('audio')[0].currentTime) % 60), 2);
+        var minuteNum = PrefixInteger(parseInt(($('audio')[0].duration - $('audio')[0].currentTime) / 60), 2);
+        var secondNum = PrefixInteger(parseInt(($('audio')[0].duration - $('audio')[0].currentTime) % 60), 2);
         $('.musicTime').text(minuteNum + ':' + secondNum);
     };
     document.onmouseup = function () {
@@ -332,11 +331,12 @@ oprogressCircle.onmousedown = function (event) {
 };
 //点击进度条
 oProgressBra.onclick = function (event) {
+    console.log('点击进度条函数')
     e = event || window.event;
-    let a = e.clientX - oProgressBra.getBoundingClientRect().left;
+    var a = e.clientX - oProgressBra.getBoundingClientRect().left;
     $('audio')[0].currentTime = a / 550 * $('audio')[0].duration;
-    let minuteNum = PrefixInteger(parseInt(($('audio')[0].duration - $('audio')[0].currentTime) / 60), 2);
-    let secondNum = PrefixInteger(parseInt(($('audio')[0].duration - $('audio')[0].currentTime) % 60), 2);
+    var minuteNum = PrefixInteger(parseInt(($('audio')[0].duration - $('audio')[0].currentTime) / 60), 2);
+    var secondNum = PrefixInteger(parseInt(($('audio')[0].duration - $('audio')[0].currentTime) % 60), 2);
     $('.musicTime').text('-' + minuteNum + ':' + secondNum);
     oprogressLight.style.width = a + 'px';
     oprogressCircle.style.left = a + 'px';

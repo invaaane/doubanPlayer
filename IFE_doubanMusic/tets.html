@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <script src="js/angular.min.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <div ng-app="test" ng-controller="testcon">
+        <input type="text" ng-model="text">
+        <button ng-click="add()">add</button>
+            <ul>
+                <li ng-repeat="i in list">{{i.data}}</li>
+            </ul>
+    </div>
+    <script>
+        var con1 = angular.module('test', [])
+        con1.controller('testcon', function ($scope) {
+            console.log("1")
+            $scope.list = []
+            $scope.add = function () {
+                console.log($scope.text)
+                $scope.list.push({
+                    data: $scope.text
+                })
+                console.log($scope.list)
+            }
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Player.Angular.Ver</title>
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+        crossorigin="anonymous">
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <link rel="stylesheet" href="style/index.css">
+    <link rel="stylesheet" type="text/css" href="Font-Awesome-3.2.1/css/font-awesome.min.css">
+</head>
+
+<body>
+
+    <!--头部-->
+    <div id="container" ng-app="main-AngularVer" ng-controller="maincontroller">
+        <div id="header">
+            <a href="https://music.douban.com/artists/">豆瓣音乐人</a>
+            <div class="searchValue">
+                <form action="" class="search-form" onkeydown="if(event.keyCode==13)return false;">
+                    <span><input type="text" class='searchInput' ng-keyup="search()" ng-model="text"></span>
+                    <button class="icon-search search" id='searchButton' type='button'></button>
+                </form>
+                <div class="suggest" id="search-suggest" ng-show="showFlag">
+                    <ul id="searchResult">
+                        <li ng-repeat="item in songSuggest" ng-click="add(item)">
+                            <table>
+                                <tr>
+                                    <td>{{item.songName}}</td>
+                                    <td>{{item.singer}}</td>
+                                </tr>
+                            </table>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!--下拉菜单-->
+
+            <a href="#" class="mouseoverLiget register">注册</a>
+        </div>
+        <!--内容区-->
+        <div id="wrap">
+            <!--列表-->
+            <div class="List-part">
+                <div class="header_1">正在播放:<span class="activeNum" ng-show="songList.length!==0">{{listNum}}</span><span class="clearAll">清空全部</span></div>
+                <div class="content">
+                    <table class="table" cellspacing="0" cellpadding="0">
+                        <tr ng-repeat="item in songList" ng-click="change(item,$index)" ng-class="addClass(item.songName,item.singer)">
+                            <td><i class="icon-heart-empty controlLove"></i></td>
+                            <td>{{item.songName}}</td>
+                            <td>{{item.singer}}</td>
+                            <td>
+                                <div class="hiddendiv">
+                                    <i class="icon-twitter signhidden"></i>
+                                    <i class="icon-facebook signhidden"></i>
+                                </div>
+                                <i class="icon-share"></i>
+                                <i class="icon-remove icon_right" ng-click="delete($index)"></i>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <!--歌曲信息-->
+            <div class="message">
+                <div id="message-cover"><img ng-src="{{nowPlay.cover}}" alt="" width="150px" height="150px"></div>
+                <span class="songType"></span>
+                <br>
+                <span class="singer">{{nowPlay.singer}}</span>
+                <div id="stars"><span><b>5211</b>关注</span><span><b>13</b>首歌</span></div>
+                <span class="lyrics-on mouseoverLiget">查看歌词</span>
+            </div>
+            <!--播放器-->
+            <div class="audio">
+                <!--进度条-->
+                <div class="musicMessage"><span class="songTitle">{{nowPlay.songName}}</span>
+                    <span class="musicTime">{{musicTime}}</span></div>
+                <div class="progressBar">
+                    <div class="progressLight"></div>
+                    <div class="progressCircle"></div>
+                </div>
+                <!--控制-->
+                <div class="controlVolume">
+                    <i class="exchangeMode" ng-class="{true:'icon-random',false:'icon-reorder'}[isRandom]" ng-click="random()"></i>
+                    <i
+                        class="icon-volume-up volume"></i>
+                        <div class="VolumeBar"></div>
+                </div>
+                <div class="controlAudio">
+                    <i class="icon-double-angle-left icon-2x" ng-click="lastSong()"></i>
+                    <i ng-click="playPause()" ng-class="{true:'icon-play',false:'icon-pause'}[isPlay]" class="icon-play icon-2x"></i>
+                    <i class="icon-double-angle-right icon-2x" ng-click="nextSong()"></i>
+                </div>
+                <!--音频-->
+                <audio id="audio" ng-src="{{nowPlay.url}}" autoplay></audio>
+            </div>
+        </div>
+    </div>
+    <!--注册框
+<div class="registration-page">
+    <h2>欢迎来到豆瓣，请注册</h2>
+    <i class="icon-reply"></i>
+    <div class="registered-wrapper" ng-app="myApp" ng-controller="signUpController">
+        <form name="signUpForm" ng-submit="submitForm()">
+            <div class='form-group'>
+                <input name="username" placeholder="用户名" type="text"
+                       class="form-control"
+                       ng-model="userdata.username"
+                       ng-maxlength='10'
+                       ng-minlength='4'
+                       required>
+                <span class="error"
+                      ng-if="signUpForm.username.$error.required && signUpForm.username.$touched">用户名不可为空</span>
+                <span class="error"
+                      ng-if="(signUpForm.username.$error.minlength||signUpForm.username.$error.maxlength) && signUpForm.username.$touched">
+                用户名长度为4-10位</span>
+                <i class="icon-thumbs-up" ng-if="signUpForm.username.$valid"></i>
+            </div>
+
+            <div class="form-group">
+                <input name="password"
+                       placeholder="密码"
+                       type="password"
+                       class="form-control"
+                       ng-model="userdata.password"
+                       ng-minlength='6'
+                       ng-maxlength='255'
+                       required>
+                <span class="error"
+                      ng-if="signUpForm.password.$error.required && signUpForm.password.$touched"
+                >密码不可为空</span>
+                <span class="error"
+                      ng-if="(signUpForm.password.$error.minlength||signUpForm.password.$error.maxlength) && signUpForm.password.$touched">
+                密码长度为6-255位</span>
+                <i class="icon-thumbs-up" ng-if="signUpForm.password.$valid"></i>
+            </div>
+
+
+            <div class="form-group">
+                <input name="password2"
+                       placeholder="确认密码"
+                       type="password"
+                       class="form-control"
+                       ng-model="userdata.password2"
+                       compare='userdata.password'
+                       ng-minlength='4'
+                       ng-maxlength='255'
+                       required>
+                <span class="error"
+                      ng-if="signUpForm.password2.$error.compare && signUpForm.password2.$touched">密码不一致</span>
+                <i class="icon-thumbs-up" ng-if="signUpForm.password2.$valid"></i>
+            </div>
+            <div class="form-group">
+                <button class="registered-btn">注册</button>
+            </div>
+        </form>
+        <p class="protocol">注册即表示您同意遵守协议<span><a href="https://www.douban.com/about/agreement" target="_blank">《使用协议》</a></span>
+        </p>
+    </div>
+</div>
+<div class="cover"></div>-->
+
+
+    <script src="js/angular.min.js"></script>
+    <script src=' js/main-angular.js '></script>
+</body>
+
+</html>
